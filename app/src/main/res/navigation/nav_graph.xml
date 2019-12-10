@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/defaultFragment">
+
+    <fragment
+        android:id="@+id/visitsFragment"
+        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.VisitsFragment"
+        android:label="Wizyty"
+        tools:layout="@layout/visits_fragment" />
+
+    <fragment
+        android:id="@+id/patientsFragment"
+        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.PatientsFragment"
+        android:label="Pacjenci"
+        tools:layout="@layout/patients_fragment" />
+
+    <fragment
+        android:id="@+id/doctorsFragment"
+        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.DoctorsFragment"
+        android:label="Lekarze"
+        tools:layout="@layout/doctors_fragment" />
+
+    <fragment
+        android:id="@+id/backupFragment"
+        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.BackupFragment"
+        android:label="Backup"
+        tools:layout="@layout/backup_fragment" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.SettingsFragment"
+        android:label="Ustawienia"
+        tools:layout="@layout/settings_fragment" />
+
+    <fragment
+        android:id="@+id/defaultFragment"
+        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.DefaultFragment"
+        android:label="Default Fragment"
+        tools:layout="@layout/default_fragment" >
+    </fragment>
+
+</navigation>
