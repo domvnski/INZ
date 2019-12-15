@@ -86,29 +86,35 @@ public class AddDoctorFragment extends Fragment {
     }
 
     private void showDatePicker() {
-        DatePickerFragment date = new DatePickerFragment();
-        Calendar calender = Calendar.getInstance();
-        Bundle args = new Bundle();
-        args.putInt("year", calender.get(Calendar.YEAR));
-        args.putInt("month", calender.get(Calendar.MONTH));
-        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
-        date.setArguments(args);
-        /**
-         * Set Call back to capture selected date
-         */
-        date.setCallBack(ondate);
-        date.show(getFragmentManager(), "Date Picker");
+        // Get Current Date
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        String textMonth = Integer.toString(monthOfYear + 1);
+                        String textDay = Integer.toString(dayOfMonth);
+                        if (monthOfYear < 10) {
+                            textMonth = "0" + monthOfYear;
+                        }
+                        if (dayOfMonth < 10) {
+                            textDay = "0" + dayOfMonth;
+                        }
+
+                        editTextBirthDate.setText(textDay + "/" + textMonth + "/" + year);
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
-
-    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
-
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-
-            editTextBirthDate.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(monthOfYear + 1)
-                    + "/" + String.valueOf(year));
-        }
-    };
 
     private void goBack() {
 
@@ -141,7 +147,7 @@ public class AddDoctorFragment extends Fragment {
 
 
 
-        if (firstName.trim().isEmpty() || lastName.trim().isEmpty() /*todo jak walidowac longa */) {
+        if (firstName.trim().isEmpty() || lastName.trim().isEmpty() || phone.trim().isEmpty() || email.trim().isEmpty() || textBirthDate.trim().isEmpty()) {
             Toast.makeText(getActivity(), "Uzupełnij wszystkie wymagane pola!", Toast.LENGTH_SHORT).show();
             return;
         }

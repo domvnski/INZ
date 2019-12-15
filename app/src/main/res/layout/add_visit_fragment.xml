@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/EditTextAddVisitPatient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Pacjent"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/EditTextAddVisitDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Data"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/EditTextAddVisitStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Początek wizyty"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/EditTextAddVisitEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Koniec wizyty"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/EditTextAddVisitDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Doktor"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/EditTextAddVisitNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Notatki"
+        android:inputType="textMultiLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/buttonCancelNewVisit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anuluj"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/buttonSaveNewVisit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zapisz"
+            android:layout_weight="1"
+            android:layout_margin="10dp"/>
+
+
+
+
+</LinearLayout>
+
+
+
+</LinearLayout>

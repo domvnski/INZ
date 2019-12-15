@@ -9,9 +9,10 @@ package com.example.umangburman.navdrawerwithnavcomponent.database;
         import androidx.room.RoomDatabase;
         import androidx.sqlite.db.SupportSQLiteDatabase;
 
+        import java.sql.Time;
         import java.util.Date;
 
-@Database(entities = {Patient.class, Doctor.class}, version = 1)
+@Database(entities = {Patient.class, Doctor.class, Visit.class}, version = 1)
 public abstract class ClinicDatabase extends RoomDatabase {
 
     public abstract ClinicDao clinicDao();
@@ -50,7 +51,10 @@ public abstract class ClinicDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            clinicDao.insertDoctor(new Doctor("Dawid", "Marczuk", new Date().getTime(), "555444333", "marczuk@sex.pl"));
+
+            clinicDao.insertVisit(new Visit(1,1,new Date().getTime(),new Date().getTime(),new Date().getTime(), "pierwsza"));
+            clinicDao.insertVisit(new Visit(2,1,new Date().getTime(),new Date().getTime(),new Date().getTime(), "druga"));
+            clinicDao.insertDoctor(new Doctor("Hubert", "Danilczuk", new Date().getTime(), "555444333", "marczuk@sex.pl"));
             clinicDao.insertPatient(new Patient( "Patryk", "Strzechowski", new Date().getTime(), "note"));
             clinicDao.insertPatient(new Patient( "Bartłomiej", "Kichor", new Date().getTime(), "note"));
             clinicDao.insertPatient(new Patient( "Karol", "Sobala", new Date().getTime(), "note"));

@@ -56,6 +56,26 @@ public class AddPatientFragment extends Fragment {
         buttonCancel = root.findViewById(R.id.buttonCancel);
 
 
+        try {
+            String firstName = getArguments().getString("PatientFirstName");
+            String lastName = getArguments().getString("PatientLastName");
+            Long birthDate = getArguments().getLong("PatientBirthDate");
+            String note = getArguments().getString("PatientNote");
+
+            Date date = new Date(birthDate);
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String textBirthDate = format.format(date);
+
+            editTextFirstName.setText(firstName);
+            editTextLastName.setText(lastName);
+            editTextBirthDate.setText(textBirthDate);
+            editTextNote.setText(note);
+
+        } catch (NullPointerException ex) {
+//            Toast.makeText(getActivity(), "exception:" + ex, Toast.LENGTH_SHORT).show();
+        }
+
+
         editTextBirthDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,9 +86,8 @@ public class AddPatientFragment extends Fragment {
         buttonSavePatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                savePatient();
-                goBack();
-
+                boolean isPatientSaved = savePatient();
+                if (isPatientSaved) goBack();
             }
         });
 
@@ -84,29 +103,36 @@ public class AddPatientFragment extends Fragment {
     }
 
     private void showDatePicker() {
-        DatePickerFragment date = new DatePickerFragment();
-        Calendar calender = Calendar.getInstance();
-        Bundle args = new Bundle();
-        args.putInt("year", calender.get(Calendar.YEAR));
-        args.putInt("month", calender.get(Calendar.MONTH));
-        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
-        date.setArguments(args);
-        /**
-         * Set Call back to capture selected date
-         */
-        date.setCallBack(ondate);
-        date.show(getFragmentManager(), "Date Picker");
+        // Get Current Date
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        String textMonth = Integer.toString(monthOfYear + 1);
+                        String textDay = Integer.toString(dayOfMonth);
+                        if (monthOfYear < 10) {
+                            textMonth = "0" + monthOfYear;
+                        }
+                        if (dayOfMonth < 10) {
+                            textDay = "0" + dayOfMonth;
+                        }
+
+                        editTextBirthDate.setText(textDay + "/" + textMonth + "/" + year);
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 
-    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
-
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-
-            editTextBirthDate.setText(String.valueOf(dayOfMonth) + "/" + String.valueOf(monthOfYear + 1)
-                    + "/" + String.valueOf(year));
-        }
-    };
 
     private void goBack() {
 
@@ -119,7 +145,7 @@ public class AddPatientFragment extends Fragment {
     }
 
 
-    private void savePatient() {
+    private boolean savePatient() {
 
         String firstName = editTextFirstName.getText().toString();
         String lastName = editTextLastName.getText().toString();
@@ -139,18 +165,24 @@ public class AddPatientFragment extends Fragment {
         }
 
 
-
-        if (firstName.trim().isEmpty() || lastName.trim().isEmpty() /*todo jak walidowac longa */) {
-            Toast.makeText(getActivity(), "Uzupełnij wszystkie wymagane pola!", Toast.LENGTH_SHORT).show();
-            return;
+        if (firstName.trim().isEmpty() || lastName.trim().isEmpty()) {
+            Toast.makeText(getActivity(), "Uzupełnij wszystkie wymagane pola!", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+            clinicViewModel = ViewModelProviders.of(getActivity()).get(ClinicViewModel.class);
+            try {
+                int bundleId = getArguments().getInt("PatientId");
+                patient = new Patient(firstName, lastName, longBirthDate, note);
+                patient.setId(bundleId);
+                clinicViewModel.updatePatient(patient);
+                Toast.makeText(getActivity(), "Pacjent zaktualizowany", Toast.LENGTH_SHORT).show();
+            } catch (NullPointerException ex) {
+                patient = new Patient(firstName, lastName, longBirthDate, note);
+                clinicViewModel.insertPatient(patient);
+                Toast.makeText(getActivity(), "Pacjent Zapisany", Toast.LENGTH_SHORT).show();
+            }
         }
-
-        patient = new Patient(firstName, lastName, longBirthDate, note);
-        clinicViewModel = ViewModelProviders.of(getActivity()).get(ClinicViewModel.class);
-        clinicViewModel = ViewModelProviders.of(getActivity()).get(ClinicViewModel.class);
-
-        clinicViewModel.insertPatient(patient);
-        Toast.makeText(getActivity(), "Pacjent Zapisany", Toast.LENGTH_SHORT).show();
-
+        return true;
     }
+
 }

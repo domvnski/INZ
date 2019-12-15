@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textViewPatientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:text="Pacjent"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textViewDoctorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/textViewPatientName"
+            android:ellipsize="end"
+            android:text="Doktor"
+            android:textStyle="bold"
+            android:textSize="20dp"  />
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/textViewDoctorName"
+            android:ellipsize="end"
+            android:text="Data" />
+        <TextView
+            android:id="@+id/textViewStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/textViewDate"
+            android:ellipsize="end"
+            android:text="Czas rozpoczęcia"/>
+
+        <TextView
+            android:id="@+id/textViewEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/textViewStartTime"
+            android:ellipsize="end"
+            android:text="Czas zakonczenia"/>
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/textViewEndTime"
+            android:ellipsize="end"
+            android:text="Opis"/>
+
+        <ImageView
+            android:id="@+id/imageViewPhoneIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_phone"
+            android:layout_alignParentEnd="true"
+            />
+
+        <ImageView
+            android:id="@+id/imageViewSmsIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_textsms"
+            android:layout_below="@+id/imageViewPhoneIcon"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/imageViewDeleteIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_delete"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/imageViewSmsIcon"
+            android:layout_marginTop="20dp"
+            />
+
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

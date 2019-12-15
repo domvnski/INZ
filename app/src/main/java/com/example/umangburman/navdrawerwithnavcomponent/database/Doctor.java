@@ -13,14 +13,14 @@ public class Doctor {
     private String firstName;
     @NonNull
     private String lastName;
-    @NonNull
+
     private long birthDate;
     @NonNull
     private String phone;
     @NonNull
     private String email;
 
-    public Doctor(@NonNull String firstName, @NonNull String lastName, @NonNull long birthDate, @NonNull String phone, @NonNull String email) {
+    public Doctor(@NonNull String firstName, @NonNull String lastName, long birthDate, @NonNull String phone, @NonNull String email) {
         this.firstName = firstName;
         this.birthDate = birthDate;
         this.lastName = lastName;

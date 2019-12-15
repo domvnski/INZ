@@ -16,6 +16,7 @@ import com.example.umangburman.navdrawerwithnavcomponent.database.Patient;
 
 public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.PatientHolder> {
     private List<Patient> patients = new ArrayList<>();
+    OnItemClickListener listener;
 
     class PatientHolder extends RecyclerView.ViewHolder {
         private TextView textViewPersonName;
@@ -23,6 +24,16 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.Patien
         public PatientHolder(@NonNull View itemView) {
             super(itemView);
             textViewPersonName = itemView.findViewById(R.id.textViewPersonName);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(patients.get(position));
+                    }
+                }
+            });
         }
     }
 
@@ -37,7 +48,7 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.Patien
     @Override
     public void onBindViewHolder(@NonNull PatientHolder holder, int position) {
         Patient currentPatient = patients.get(position);
-        holder.textViewPersonName.setText(currentPatient.getLastName() + " " + currentPatient.getFirstName() + " " + currentPatient.getBirthDate());
+        holder.textViewPersonName.setText(currentPatient.getLastName() + " " + currentPatient.getFirstName());
     }
 
     @Override
@@ -45,15 +56,22 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.Patien
         return patients.size();
     }
 
-    public void setPatients(List<Patient> patients){
+    public void setPatients(List<Patient> patients) {
         this.patients = patients;
         notifyDataSetChanged();
     }
 
-    public Patient getPatientAt(int position){
+    public Patient getPatientAt(int position) {
         return patients.get(position);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Patient patient);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
 
 }

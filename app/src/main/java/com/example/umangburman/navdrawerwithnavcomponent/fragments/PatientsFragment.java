@@ -1,6 +1,7 @@
 package com.example.umangburman.navdrawerwithnavcomponent.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.umangburman.navdrawerwithnavcomponent.MainActivity;
 import com.example.umangburman.navdrawerwithnavcomponent.R;
 import com.example.umangburman.navdrawerwithnavcomponent.database.ClinicViewModel;
 import com.example.umangburman.navdrawerwithnavcomponent.database.Patient;
@@ -38,7 +41,6 @@ public class PatientsFragment extends Fragment {
     ClinicViewModel clinicViewModel;
     private Drawable icon;
     private final ColorDrawable background = new ColorDrawable();
-    private TextView textEmptyRecycler;
 
     @Override
     public void onAttach(Context context) {
@@ -58,6 +60,9 @@ public class PatientsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //todo resetowanie widoku?
+//                 FrameLayout host = getView().findViewById(R.id.nav_host_fragment);
+//                 host.removeAllViews();
                 AddPatientFragment addPatientFragment = new AddPatientFragment();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
@@ -146,6 +151,29 @@ public class PatientsFragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
+        adapter.setOnItemClickListener(new PatientsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Patient patient) {
+
+                Bundle patientBundle = new Bundle();
+                patientBundle.putString("PatientFirstName", patient.getFirstName());
+                patientBundle.putString("PatientLastName", patient.getLastName());
+                patientBundle.putLong("PatientBirthDate", patient.getBirthDate());
+                patientBundle.putString("PatientNote", patient.getNote());
+                patientBundle.putInt("PatientId", patient.getId());
+                //set Fragmentclass Arguments
+                AddPatientFragment addPatientFragment = new AddPatientFragment();
+                addPatientFragment.setArguments(patientBundle);
+
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.beginTransaction()
+                        .replace(R.id.nav_host_fragment, addPatientFragment)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
+
         return root;
     }
 
@@ -168,5 +196,6 @@ public class PatientsFragment extends Fragment {
         snackbar.show();
 
     }
+
 
 }

@@ -18,8 +18,8 @@ public interface ClinicDao {
     @Insert
     void insertDoctor(Doctor doctor);
 
-//    @Insert
-//    void insertAppointment(Appointment appointment);
+    @Insert
+    void insertVisit(Visit visit);
 
     @Update
     void updatePatient(Patient patient);
@@ -27,8 +27,8 @@ public interface ClinicDao {
     @Update
     void updateDoctor(Doctor doctor);
 
-//    @Update
-//    void updateAppointment(Appointment appointment);
+    @Update
+    void updateVisit(Visit visit);
 
     @Delete
     void deletePatient(Patient patient);
@@ -36,8 +36,8 @@ public interface ClinicDao {
     @Delete
     void deleteDoctor(Doctor doctor);
 
-//    @Delete
-//    void deleteAppointment(Appointment appointment);
+    @Delete
+    void deleteVisit(Visit visit);
 
     @Query("DELETE FROM patient")
     void deleteAllPatients();
@@ -45,17 +45,26 @@ public interface ClinicDao {
     @Query("DELETE FROM Doctor")
     void deleteAllDoctors();
 
-//    @Query("DELETE FROM appointment")
-//    void deleteAllAppointments();
+    @Query("DELETE FROM visits")
+    void deleteAllVisits();
 
     @Query("SELECT * FROM patient ORDER BY lastName ASC")
     LiveData<List<Patient>> getAllPatients();
 
+    @Query("SELECT * FROM patient Where id=:id")
+    LiveData<Patient> getPatientById(int id);
+
     @Query("SELECT * FROM doctor ORDER BY lastName ASC")
     LiveData<List<Doctor>> getAllDoctors();
 
-//    @Query("SELECT * FROM appointment ORDER BY date DESC")
-//    LiveData<List<Appointment>> getAllAppoitments();
+    @Query("SELECT * FROM visits e ORDER BY date DESC")
+    LiveData<List<Visit>> getAllVisits();
+
+    @Query("SELECT * FROM visits WHERE date>:date ORDER BY date DESC")
+    LiveData<List<Visit>> getAllVisitsAfter(long date);
+
+    @Query("SELECT * FROM visits ORDER BY date<:date DESC")
+    LiveData<List<Visit>> getAllVisitsBefore(long date);
 
 
 }

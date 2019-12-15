@@ -13,14 +13,14 @@ public class ClinicRepository {
     private ClinicDao clinicDao;
     private LiveData<List<Patient>> allPatients;
     private LiveData<List<Doctor>> allDoctors;
-    private LiveData<List<Appointment>> allAppointments;
+    private LiveData<List<Visit>> allVisits;
 
     public ClinicRepository(@NonNull Application application) {
         ClinicDatabase clinicDatabase = ClinicDatabase.getDatabase(application);
         clinicDao = clinicDatabase.clinicDao();
         allPatients = clinicDao.getAllPatients();
         allDoctors = clinicDao.getAllDoctors();
-//        allAppointments = clinicDao.getAllAppoitments();
+        allVisits = clinicDao.getAllVisits();
 
     }
 
@@ -44,6 +44,10 @@ public class ClinicRepository {
         return allPatients;
     }
 
+    public LiveData<Patient> getPatientById(int id){
+        return  clinicDao.getPatientById(id);
+    }
+
 
     public void insertDoctor(Doctor doctor) {
         new InsertDoctorAsyncTask(clinicDao).execute(doctor);
@@ -58,7 +62,7 @@ public class ClinicRepository {
     }
 
     public void deleteAllDoctors() {
-        new InsertDoctorAsyncTask(clinicDao).execute();
+        new DeleteAllDoctorsAsyncTask(clinicDao).execute();
     }
 
     public LiveData<List<Doctor>> getAllDoctors() {
@@ -66,21 +70,25 @@ public class ClinicRepository {
     }
 
 
-//    public void insertAppoitment(Appointment appointment) {
-//    }
-//
-//    public void updateAppoitment(Appointment appointment) {
-//    }
-//
-//    public void deleteAppoitment(Appointment appointment) {
-//    }
-//
-//    public void deleteAllAppoitments() {
-//    }
-//
-//    public LiveData<List<Appointment>> getAllAppoitments() {
-//        return allAppointments;
-//    }
+    public void insertVisit(Visit visit) {
+        new InsertVisitAsyncTask(clinicDao).execute(visit);
+    }
+
+    public void updateVisit(Visit visit) {
+        new UpdateVisitAsyncTask(clinicDao).execute(visit);
+    }
+
+    public void deleteVisit(Visit visit) {
+        new DeleteVisitAsyncTask(clinicDao).execute(visit);
+    }
+
+    public void deleteAllVisits() {
+        new DeleteAllVisitsAsyncTask(clinicDao).execute();
+    }
+
+    public LiveData<List<Visit>> getAllVisits() {
+        return allVisits;
+    }
 
     private static class InsertPatientAsyncTask extends AsyncTask<Patient, Void, Void> {
         private ClinicDao clinicDao;
@@ -190,6 +198,64 @@ public class ClinicRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             clinicDao.deleteAllDoctors();
+            return null;
+        }
+    }
+
+    private static class InsertVisitAsyncTask extends AsyncTask<Visit, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private InsertVisitAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(Visit... visits) {
+            clinicDao.insertVisit(visits[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateVisitAsyncTask extends AsyncTask<Visit, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private UpdateVisitAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(Visit... visits) {
+            clinicDao.updateVisit(visits[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteVisitAsyncTask extends AsyncTask<Visit, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private DeleteVisitAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(Visit... visits) {
+            clinicDao.deleteVisit(visits[0]);
+            return null;
+        }
+    }
+
+
+
+    private static class DeleteAllVisitsAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private DeleteAllVisitsAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            clinicDao.deleteAllVisits();
             return null;
         }
     }
