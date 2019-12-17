@@ -12,7 +12,7 @@ package com.example.umangburman.navdrawerwithnavcomponent.database;
         import java.sql.Time;
         import java.util.Date;
 
-@Database(entities = {Patient.class, Doctor.class, Visit.class}, version = 1)
+@Database(entities = {Patient.class, Doctor.class, Visit.class, PatientAddress.class, PatientContact.class}, version = 1)
 public abstract class ClinicDatabase extends RoomDatabase {
 
     public abstract ClinicDao clinicDao();

@@ -15,38 +15,14 @@ public interface ClinicDao {
     @Insert
     void insertPatient(Patient patient);
 
-    @Insert
-    void insertDoctor(Doctor doctor);
-
-    @Insert
-    void insertVisit(Visit visit);
-
     @Update
     void updatePatient(Patient patient);
-
-    @Update
-    void updateDoctor(Doctor doctor);
-
-    @Update
-    void updateVisit(Visit visit);
 
     @Delete
     void deletePatient(Patient patient);
 
-    @Delete
-    void deleteDoctor(Doctor doctor);
-
-    @Delete
-    void deleteVisit(Visit visit);
-
     @Query("DELETE FROM patient")
     void deleteAllPatients();
-
-    @Query("DELETE FROM Doctor")
-    void deleteAllDoctors();
-
-    @Query("DELETE FROM visits")
-    void deleteAllVisits();
 
     @Query("SELECT * FROM patient ORDER BY lastName ASC")
     LiveData<List<Patient>> getAllPatients();
@@ -54,8 +30,56 @@ public interface ClinicDao {
     @Query("SELECT * FROM patient Where id=:id")
     LiveData<Patient> getPatientById(int id);
 
+    @Insert
+    void insertPatientAddress(PatientAddress patientAddress);
+
+    @Update
+    void updatePatientAddress(PatientAddress patientAddress);
+
+    @Delete
+    void deletePatientAddress(PatientAddress patientAddress);
+
+//    @Query("SELECT * FROM patient_address Where patientId=:id")
+//    LiveData<PatientAddress> getPatientAddressByPatientId(int id);
+
+    @Insert
+    void insertPatientContact(PatientContact patientContact);
+
+    @Update
+    void updatePatientContact(PatientContact patientContact);
+
+    @Delete
+    void deletePatientContact(PatientContact patientContact);
+
+//    @Query("SELECT * FROM patient_address Where patientId=:id")
+//    LiveData<PatientContact> getPatientContactByPatientId(int id);
+
+    @Insert
+    void insertDoctor(Doctor doctor);
+
+    @Update
+    void updateDoctor(Doctor doctor);
+
+    @Delete
+    void deleteDoctor(Doctor doctor);
+
+    @Query("DELETE FROM Doctor")
+    void deleteAllDoctors();
+
     @Query("SELECT * FROM doctor ORDER BY lastName ASC")
     LiveData<List<Doctor>> getAllDoctors();
+
+    @Insert
+    void insertVisit(Visit visit);
+
+    @Update
+    void updateVisit(Visit visit);
+
+    @Delete
+    void deleteVisit(Visit visit);
+
+    @Query("DELETE FROM visits")
+    void deleteAllVisits();
 
     @Query("SELECT * FROM visits e ORDER BY date DESC")
     LiveData<List<Visit>> getAllVisits();

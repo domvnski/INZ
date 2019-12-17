@@ -44,9 +44,45 @@ public class ClinicRepository {
         return allPatients;
     }
 
-    public LiveData<Patient> getPatientById(int id){
-        return  clinicDao.getPatientById(id);
+//    public LiveData<Patient> getPatientById(final int id){
+//        final Patient patient;
+//        new Thread(new Runnable() {
+//            public void run() {
+//                return patient = clinicDao.getPatientById(id);;
+//            }
+//        }).start();
+//    }
+
+    public void insertPatientAddress(PatientAddress patientAddress) {
+        new InsertPatientAddressAsyncTask(clinicDao).execute(patientAddress);
     }
+
+    public void updatePatientAddress(PatientAddress patientAddress) {
+        new UpdatePatientAddressAsyncTask(clinicDao).execute(patientAddress);
+    }
+
+    public void deletePatientAddress(PatientAddress patientAddress) {
+        new DeletePatientAddressAsyncTask(clinicDao).execute(patientAddress);
+    }
+    
+//    public LiveData<PatientAddress> getPatientAddressById(int id){
+//        return  clinicDao.getPatientAddressByPatientId(id); //todo
+//    }
+    public void insertPatientContact(PatientContact patientContact) {
+        new InsertPatientContactAsyncTask(clinicDao).execute(patientContact);
+    }
+
+    public void updatePatientContact(PatientContact patientContact) {
+        new UpdatePatientContactAsyncTask(clinicDao).execute(patientContact);
+    }
+
+    public void deletePatientContact(PatientContact patientContact) {
+        new DeletePatientContactAsyncTask(clinicDao).execute(patientContact);
+    }
+
+//    public LiveData<PatientContact> getPatientContactById(int id){
+//        return  clinicDao.getPatientContactByPatientId(id); //todo
+//    }
 
 
     public void insertDoctor(Doctor doctor) {
@@ -142,6 +178,90 @@ public class ClinicRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             clinicDao.deleteAllPatients();
+            return null;
+        }
+    }
+
+    private static class InsertPatientAddressAsyncTask extends AsyncTask<PatientAddress, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private InsertPatientAddressAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(PatientAddress... patientAddresses) {
+            clinicDao.insertPatientAddress(patientAddresses[0]);
+            return null;
+        }
+    }
+
+    private static class UpdatePatientAddressAsyncTask extends AsyncTask<PatientAddress, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private UpdatePatientAddressAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(PatientAddress... patientAddresses) {
+            clinicDao.updatePatientAddress(patientAddresses[0]);
+            return null;
+        }
+    }
+
+    private static class DeletePatientAddressAsyncTask extends AsyncTask<PatientAddress, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private DeletePatientAddressAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(PatientAddress... patientAddresses) {
+            clinicDao.deletePatientAddress(patientAddresses[0]);
+            return null;
+        }
+    }
+
+    private static class InsertPatientContactAsyncTask extends AsyncTask<PatientContact, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private InsertPatientContactAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(PatientContact... patientContacts) {
+            clinicDao.insertPatientContact(patientContacts[0]);
+            return null;
+        }
+    }
+
+    private static class UpdatePatientContactAsyncTask extends AsyncTask<PatientContact, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private UpdatePatientContactAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(PatientContact... patientContacts) {
+            clinicDao.updatePatientContact(patientContacts[0]);
+            return null;
+        }
+    }
+
+    private static class DeletePatientContactAsyncTask extends AsyncTask<PatientContact, Void, Void> {
+        private ClinicDao clinicDao;
+
+        private DeletePatientContactAsyncTask(ClinicDao clinicDao){
+            this.clinicDao=clinicDao;
+        }
+
+        @Override
+        protected Void doInBackground(PatientContact... patientContacts) {
+            clinicDao.deletePatientContact(patientContacts[0]);
             return null;
         }
     }

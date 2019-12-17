@@ -2,6 +2,7 @@ package com.example.umangburman.navdrawerwithnavcomponent.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,47 +20,27 @@ import com.example.umangburman.navdrawerwithnavcomponent.R;
 
 public class PatientDialogFragment extends DialogFragment {
 
-    private RecyclerView recyclerView;
-    private PatientsAdapter adapter;
-    AlertDialog.Builder builder;
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_fragment, null);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
-        final Dialog dialog = getDialog();
-        dialog.setCancelable(true);
-        dialog.setTitle("Add a picture to your aircraft:");
-
-        recyclerView =  root.findViewById(R.id.recyclerViewPatientsDialog);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        recyclerView.setHasFixedSize(true);
-        adapter = new PatientsAdapter();
-        recyclerView.setAdapter(adapter);
-
-//        FrameLayout host = getView().findViewById(R.id.nav_host_fragment);
-//        host.removeAllViews();
-
-        dialog.setTitle("Wybierz pacjenta");
-        dialog.setContentView(recyclerView);
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        builder= new AlertDialog.Builder(getActivity());
+        Context context = requireActivity();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View dialogView = inflater.inflate(R.layout.dialog_fragment, null);
 
-        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+        RecyclerView recyclerView = dialogView.findViewById(R.id.recyclerViewPatientsDialog);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setHasFixedSize(true);
+        PatientsAdapter adapter = new PatientsAdapter();
+        recyclerView.setAdapter(adapter);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                .setView(dialogView)
+                .setTitle("Choose Patient")
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
         return builder.create();
     }
-
 }

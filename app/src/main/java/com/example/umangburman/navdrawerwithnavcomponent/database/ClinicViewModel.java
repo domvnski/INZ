@@ -41,13 +41,45 @@ public class ClinicViewModel extends AndroidViewModel {
         clinicRepository.deleteAllPatients();
     }
 
-    public LiveData<Patient> getPatientById(int id) {
-        return clinicRepository.getPatientById(id);
-    }
+//    public LiveData<Patient> getPatientById(int id) {
+//        return clinicRepository.getPatientById(id);
+//    }
 
     public LiveData<List<Patient>> getAllPatients() {
         return allPatients;
     }
+
+    public void insertPatientAddress(PatientAddress patientAddress) {
+        clinicRepository.insertPatientAddress(patientAddress);
+    }
+
+    public void updatePatientAddress(PatientAddress patientAddress) {
+        clinicRepository.updatePatientAddress(patientAddress);
+    }
+
+    public void deletePatientAddress(PatientAddress patientAddress) {
+        clinicRepository.deletePatientAddress(patientAddress);
+    }
+
+//    public LiveData<PatientAddress> getPatientAddressById(int id) {
+//        return clinicRepository.getPatientAddressById(id);
+//    }
+
+    public void insertPatientContact(PatientContact patientContact) {
+        clinicRepository.insertPatientContact(patientContact);
+    }
+
+    public void updatePatientContact(PatientContact patientContact) {
+        clinicRepository.updatePatientContact(patientContact);
+    }
+
+    public void deletePatientContact(PatientContact patientContact) {
+        clinicRepository.deletePatientContact(patientContact);
+    }
+
+//    public LiveData<PatientContact> getPatientContactById(int id) {
+//        return clinicRepository.getPatientContactById(id);
+//    }
 
     public void insertDoctor(Doctor doctor) {
         clinicRepository.insertDoctor(doctor);
