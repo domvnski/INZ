@@ -8,74 +8,143 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/addDoctorFirstnameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Imię"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/addDoctorLastNameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Nazwisko"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/addDoctorBirthDateEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Data urodzenia"
-        android:inputType="text" />
-
-
-    <EditText
-        android:id="@+id/addDoctorPhoneEditText"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Telefon"
-        android:inputType="phone" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/addDoctorEmailEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Anuluj"
-            android:layout_weight="1"
-            android:layout_margin="10dp"/>
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttonSaveNewDoctor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zapisz"
-            android:onClick="onAddPatientButtonClick"
-            android:layout_weight="1"
-            android:layout_margin="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:ems="10"
+                android:text="Imię"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextAddDoctorFirstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź imię"
+                android:inputType="textPersonName"
+                android:maxLength="20"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="Nazwisko"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextAddDoctorLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź nazwisko"
+                android:inputType="textPersonName"
+                android:maxLength="20" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="Numer telefonu"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextAddDoctorPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź number telefonu"
+                android:inputType="phone"
+                android:maxLength="11" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="Email"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextAddDoctorEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź adres email"
+                android:inputType="textEmailAddress"
+                android:maxLength="50" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="Specjalizacja"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextAddDoctorSpecialization"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź specjalizację"
+                android:inputType="text"
+                android:maxLength="20" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="Numer PWZ"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextAddDoctorPwzNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź numer PWZ"
+                android:inputType="number"
+                android:maxLength="7" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buttonSaveNewDoctor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorBackground"
+                    android:text="Zapisz" />
 
 
+            </LinearLayout>
 
+        </LinearLayout>
 
-</LinearLayout>
-
+    </ScrollView>
 
 
 </LinearLayout>

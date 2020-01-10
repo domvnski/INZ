@@ -7,38 +7,38 @@
 
     <fragment
         android:id="@+id/visitsFragment"
-        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.VisitsFragment"
+        android:name="pl.wat.domanski.myClinic.fragments.VisitsFragment"
         android:label="Wizyty"
         tools:layout="@layout/visits_fragment" />
 
     <fragment
         android:id="@+id/patientsFragment"
-        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.PatientsFragment"
+        android:name="pl.wat.domanski.myClinic.fragments.PatientsFragment"
         android:label="Pacjenci"
         tools:layout="@layout/patients_fragment" />
 
     <fragment
         android:id="@+id/doctorsFragment"
-        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.DoctorsFragment"
+        android:name="pl.wat.domanski.myClinic.fragments.DoctorsFragment"
         android:label="Lekarze"
         tools:layout="@layout/doctors_fragment" />
 
     <fragment
         android:id="@+id/backupFragment"
-        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.BackupFragment"
+        android:name="pl.wat.domanski.myClinic.fragments.BackupFragment"
         android:label="Backup"
         tools:layout="@layout/backup_fragment" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.SettingsFragment"
+        android:name="pl.wat.domanski.myClinic.fragments.SettingsFragment"
         android:label="Ustawienia"
         tools:layout="@layout/settings_fragment" />
 
     <fragment
         android:id="@+id/defaultFragment"
-        android:name="com.example.umangburman.navdrawerwithnavcomponent.fragments.DefaultFragment"
-        android:label="Default Fragment"
+        android:name="pl.wat.domanski.myClinic.fragments.DefaultFragment"
+        android:label="Strona Główna"
         tools:layout="@layout/default_fragment" >
     </fragment>
 

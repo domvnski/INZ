@@ -1,31 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
-    android:background="@color/colorAccent">
+    android:padding="16dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:contentPadding="10dp"
+        app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <TextView
+            android:id="@+id/textViewSettingsDeleteData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Usuń bazę danych"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimary" />
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:ems="10"
+        android:text="O aplikacji"
+        android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ustawienia" />
+        android:ems="10"
+        android:text="Aplikacja zrealizowana na potrzeby pracy inżynierskiej."
+        android:layout_marginBottom="10dp"
+        android:textSize="15dp" />
+
     <TextView
-        android:id="@+id/textView111"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ustawienia" />
+        android:ems="10"
+        android:text="Temat pracy: Opracowanie aplikacji do zarządzania danymi osobowymi pacjentów w przychodni lekarskiej"
+        android:layout_marginBottom="10dp"
+        android:textSize="15dp" />
+
     <TextView
-        android:id="@+id/textView1111"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ustawienia" />
+        android:ems="10"
+        android:text="Dyplomant: Mateusz Domański"
+        android:textSize="15dp" />
+
     <TextView
-        android:id="@+id/textView11111"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ustawienia" />
+        android:ems="10"
+        android:text="Promotor: dr inż. Piotr Łubkowski"
+        android:textSize="15dp" />
+
+
 </LinearLayout>

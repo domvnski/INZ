@@ -9,28 +9,19 @@
     android:orientation="vertical">
 
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+    <SearchView
+        android:id="@+id/searchViewPatients"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Szukaj"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Szukaj"
+        android:queryHint="Wyszukaj pacjenta"
+        android:iconifiedByDefault="false"
         />
 
-
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="46dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPatients"
@@ -40,23 +31,16 @@
         android:layout_marginTop="50dp"
         />
 
-<!--    <TextView-->
-<!--        android:id="@+id/textEmptyRecycler"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Brak pacjentów"-->
-<!--        android:textSize="50dp"/>-->
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddPatient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         android:layout_gravity="bottom|end"
-        android:layout_margin="32dp"/>
-    <!--        android:backgroundTint="@color/colorPrimaryDark"-->
-
+        android:layout_margin="32dp"
+        android:tint="@color/colorBackground"
+        android:backgroundTint="@color/colorPrimary"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

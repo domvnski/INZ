@@ -4,31 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher_foreground" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="myClinic"
+            android:textColor="@color/colorPrimary"
+            android:textSize="28dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/visitsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:text="Wizyty"
-            android:textSize="24dp" />
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center_vertical"-->
+        <!--            android:layout_marginLeft="10dp"-->
+        <!--            android:text="Wizyty"-->
+        <!--            android:textSize="28dp" />-->
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/visits_card_view"
-            style="@style/AppTheme.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/colorBackground"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="20dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="20dp">
 
 
             <LinearLayout
@@ -36,63 +61,83 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/visitsTodayTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:text="0"
-                        android:textSize="24dp" />
-
-                    <TextView
-                        android:id="@+id/todayTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="50dp"
-                        android:text="Dzisiaj"
-                        android:textSize="24dp" />
-
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
+
                     <TextView
-                        android:id="@+id/visitsUpcomingTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Wizyt dzisiaj:"
+                        android:textStyle="bold"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/textViewMainFragmentTodayVisitsCounter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:text="0"
+                        android:textStyle="bold"
                         android:textSize="24dp" />
 
-                    <TextView
-                        android:id="@+id/upcomingTextView"
+
+                    <ImageButton
+                        android:id="@+id/imageButtonMainFragmentShowVisits"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="50dp"
-                        android:text="Nadchodzące"
-                        android:textSize="24dp" />
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="80dp"
+                        android:background="@color/colorBackground"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:src="@drawable/ic_eye" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonMainFragmentAddVisit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="30dp"
+                        android:background="@color/colorBackground"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:src="@drawable/ic_add" />
 
 
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/buttonMainFragmentShowDeviceCalendar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/custom_button"
+                        android:padding="10dp"
+                        android:text="Zobacz Kalendarz urządzenia"
+                        android:textColor="@color/colorPrimary" />
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
 
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
 
 </LinearLayout>

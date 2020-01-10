@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/textViewPatientName"
@@ -20,7 +20,7 @@
             android:ellipsize="end"
             android:text="Pacjent"
             android:textStyle="bold"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/textViewDoctorName"
@@ -30,69 +30,69 @@
             android:layout_below="@+id/textViewPatientName"
             android:ellipsize="end"
             android:text="Doktor"
-            android:textStyle="bold"
-            android:textSize="20dp"  />
-        <TextView
-            android:id="@+id/textViewDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@+id/textViewDoctorName"
-            android:ellipsize="end"
-            android:text="Data" />
-        <TextView
-            android:id="@+id/textViewStartTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@+id/textViewDate"
-            android:ellipsize="end"
-            android:text="Czas rozpoczęcia"/>
+            android:textSize="14dp"  />
 
-        <TextView
-            android:id="@+id/textViewEndTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@+id/textViewStartTime"
-            android:ellipsize="end"
-            android:text="Czas zakonczenia"/>
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:layout_below="@+id/textViewDoctorName"
+                android:text="Data" />
+
+
+
+            <TextView
+                android:id="@+id/textViewStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/textViewDate"
+                android:layout_below="@+id/textViewDoctorName"
+                android:ellipsize="end"
+                android:text="Czas rozpoczęcia"/>
+
+            <TextView
+                android:id="@+id/textViewEndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewStartTime"
+                android:layout_below="@+id/textViewDoctorName"
+                android:ellipsize="end"
+                android:text="Czas zakonczenia"/>
+
+
 
         <TextView
             android:id="@+id/textViewDescription"
             android:layout_width="wrap_content"
+            android:maxWidth="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/textViewEndTime"
             android:ellipsize="end"
             android:text="Opis"/>
 
+
+
         <ImageView
-            android:id="@+id/imageViewPhoneIcon"
+            android:id="@+id/imageViewEditVisit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_phone"
+            app:srcCompat="@drawable/ic_edit_black_24dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
             />
 
         <ImageView
-            android:id="@+id/imageViewSmsIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_textsms"
-            android:layout_below="@+id/imageViewPhoneIcon"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            />
-
-        <ImageView
-            android:id="@+id/imageViewDeleteIcon"
+            android:id="@+id/imageViewDeleteVisit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_delete"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/imageViewSmsIcon"
-            android:layout_marginTop="20dp"
+            android:layout_below="@id/textViewDate"
+
             />
 
 

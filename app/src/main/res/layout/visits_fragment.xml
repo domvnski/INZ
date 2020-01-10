@@ -13,18 +13,26 @@
         android:id="@+id/calendarVisits"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-30dp"
         android:firstDayOfWeek="2"
         android:outlineAmbientShadowColor="@color/colorPrimaryDark"
-        android:scaleY="0.9"/>
+        android:scaleX="0.95"
+        android:scaleY="0.95" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="290dp"
+        android:background="@color/colorPrimary" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewVisits"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="220dp"
-        tools:listitem="@layout/visit_item"
-        />
+        android:layout_marginTop="295dp"
+        tools:listitem="@layout/visit_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddVisit"
@@ -32,5 +40,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="32dp"
-        android:src="@drawable/ic_add" />
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_add"
+        android:tint="@color/colorBackground" />
+
+    <TextView
+        android:id="@+id/textViewVisitsNoVisits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:gravity="center"
+        android:text="Brak wizyt wybranego dnia"
+        android:textSize="25dp"
+        android:visibility="invisible" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

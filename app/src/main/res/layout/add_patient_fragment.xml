@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,65 +10,228 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/addPatientFirstnameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Imię"
-        android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/addPatientLastNameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Nazwisko"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/addPatientBirthDateEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Data urodzenia"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/addPatientNoteEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Notatki"
-        android:inputType="textMultiLine" />
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Anuluj"
-            android:layout_weight="1"
-            android:layout_margin="10dp"/>
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/buttonSaveNewPatient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zapisz"
-            android:onClick="onAddPatientButtonClick"
-            android:layout_weight="1"
-            android:layout_margin="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:text="Imię / Imiona"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientFirstnameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź imię / imiona"
+                android:inputType="textPersonName"
+                android:maxLength="20"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Nazwisko"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientLastNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź nazwisko"
+                android:inputType="textPersonName"
+                android:maxLength="20" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Data Urodzenia"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientBirthDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wybierz datę urodzenia"
+                android:focusable="false"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="PESEL"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientPeselEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź PESEL"
+                android:inputType="phone"
+                android:maxLength="11"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Numer telefonu"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientPhoneEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź numer telefonu"
+                android:inputType="phone"
+                android:maxLength="12"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Email"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientEmailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź adres email"
+                android:maxLength="50"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Adres zamieszkania"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientAdressEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź adres"
+                android:inputType="text"
+                android:maxLength="50"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Kod pocztowy"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientZipCodeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź kod pocztowy"
+                android:inputType="text"
+                android:maxLength="6"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Miasto"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientCityEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź miasto"
+                android:inputType="text"
+                android:maxLength="20"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Notatki"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/addPatientNoteEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wprowadź notatki"
+                android:inputType="textMultiLine"
+                android:minLines="3"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/buttonSaveNewPatient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zapisz"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorBackground"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"/>
 
 
 
 
-</LinearLayout>
+            </LinearLayout>
 
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>
