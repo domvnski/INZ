@@ -1,4 +1,4 @@
-package pl.wat.domanski.myClinic.fragments;
+package pl.wat.domanski.myClinic.dialogs;
 
 import pl.wat.domanski.myClinic.database.Doctor;
 import pl.wat.domanski.myClinic.database.Patient;

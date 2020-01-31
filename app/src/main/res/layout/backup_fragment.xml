@@ -97,7 +97,7 @@
                 android:id="@+id/buttonExportData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Eksportuj"
+                android:text="Zapisz"
                 android:background="@color/colorPrimary"
                 android:textColor="@color/colorBackground"/>
 

@@ -12,13 +12,12 @@ public class PatientAddress {
     private int patientId;
     @NonNull
     private String address;
-
+    @NonNull
     private String zipCode;
-
+    @NonNull
     private String city;
 
-
-    public PatientAddress(int patientId, @NonNull String address, String zipCode, String city) {
+    public PatientAddress( int patientId, @NonNull String address, @NonNull String zipCode, @NonNull String city) {
         this.patientId = patientId;
         this.address = address;
         this.zipCode = zipCode;
@@ -50,33 +49,21 @@ public class PatientAddress {
         this.address = address;
     }
 
-
+    @NonNull
     public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
+    public void setZipCode(@NonNull String zipCode) {
         this.zipCode = zipCode;
     }
 
+    @NonNull
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(@NonNull String city) {
         this.city = city;
-    }
-
-
-    @Override
-    public String
-    toString() {
-        return "PatientAddress{" +
-                "id=" + id +
-                ", patientId=" + patientId +
-                ", address='" + address + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", city='" + city + '\'' +
-                '}';
     }
 }

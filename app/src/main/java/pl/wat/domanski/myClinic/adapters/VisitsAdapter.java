@@ -1,4 +1,4 @@
-package pl.wat.domanski.myClinic.fragments;
+package pl.wat.domanski.myClinic.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

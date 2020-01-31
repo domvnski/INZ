@@ -178,12 +178,12 @@ public class DoctorInfoFragment extends Fragment {
         doctorBundle.putString("DoctorSpecialization", doctorSpecialization);
         doctorBundle.putString("DoctorPwzNumber", doctorPwzNumber);
 
-        AddDoctorFragment addDoctorFragment = new AddDoctorFragment();
-        addDoctorFragment.setArguments(doctorBundle);
+        AddEditDoctorFragment addEditDoctorFragment = new AddEditDoctorFragment();
+        addEditDoctorFragment.setArguments(doctorBundle);
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.nav_host_fragment, addDoctorFragment)
+                .replace(R.id.nav_host_fragment, addEditDoctorFragment)
                 .addToBackStack(null)
                 .commit();
 
@@ -225,7 +225,7 @@ public class DoctorInfoFragment extends Fragment {
             ActivityCompat.requestPermissions(
                     getActivity(),
                     new String[]{Manifest.permission.CALL_PHONE},
-                    123);
+                    0);
         } else {
             startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:" + doctorPhone)));
         }

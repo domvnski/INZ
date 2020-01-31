@@ -76,12 +76,12 @@ public class BackupFragment extends Fragment {
     }
 
     private void showFolderPicker() {
-        int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     getActivity(),
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    123); //todo inny request?
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    0);
         } else {
             final StorageChooser chooser = new StorageChooser.Builder()
                     .withActivity(getActivity())
@@ -108,21 +108,14 @@ public class BackupFragment extends Fragment {
     }
 
     private void restoreDB() {
-        int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    getActivity(),
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    123);
-        } else {
             try {
                 File sd = Environment.getExternalStorageDirectory();
                 File data = Environment.getDataDirectory();
 
                 if (sd.canWrite()) {
-                    String currentDBPath = "/data/" + "pl.wat.domanski.myClinic" + "/databases/" + "clinic_database";
-                    String currentDBshmPath = "/data/" + "pl.wat.domanski.myClinic" + "/databases/" + "clinic_database-shm";
-                    String currentDBwalPath = "/data/" + "pl.wat.domanski.myClinic" + "/databases/" + "clinic_database-wal";
+                    String currentDBPath = "/data/pl.wat.domanski.myClinic/databases/" + "clinic_database";
+                    String currentDBshmPath = "/data/pl.wat.domanski.myClinic/databases/" + "clinic_database-shm";
+                    String currentDBwalPath = "/data/pl.wat.domanski.myClinic/databases/" + "clinic_database-wal";
 
                     String backupDBPath = backupPath + "/clinic_database";
                     String backupDBshmPath = backupPath + "/clinic_database-shm";
@@ -162,7 +155,6 @@ public class BackupFragment extends Fragment {
                 e.printStackTrace();
                 Toast.makeText(getActivity(), "Nie znaleziono plików bazy danych", Toast.LENGTH_SHORT).show();
             }
-        }
     }
 
 
@@ -173,7 +165,7 @@ public class BackupFragment extends Fragment {
             ActivityCompat.requestPermissions(
                     getActivity(),
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    123);
+                    0);
         } else {
             try {
                 File sd = Environment.getExternalStorageDirectory();

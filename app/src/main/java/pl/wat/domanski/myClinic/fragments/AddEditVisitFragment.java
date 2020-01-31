@@ -16,29 +16,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
 
-import pl.wat.domanski.myClinic.MainActivity;
 import pl.wat.domanski.myClinic.R;
 import pl.wat.domanski.myClinic.database.ClinicRepository;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Doctor;
 import pl.wat.domanski.myClinic.database.Patient;
 import pl.wat.domanski.myClinic.database.Visit;
-import pl.wat.domanski.myClinic.fragments.DialogContract;
-import pl.wat.domanski.myClinic.fragments.DoctorDialogFragment;
+import pl.wat.domanski.myClinic.dialogs.DialogContract;
+import pl.wat.domanski.myClinic.dialogs.DoctorDialogFragment;
 import pl.wat.domanski.myClinic.dialogs.PatientDialogFragment;
-import pl.wat.domanski.myClinic.fragments.VisitsFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
-public class AddVisitFragment extends Fragment implements DialogContract {
+public class AddEditVisitFragment extends Fragment implements DialogContract {
 
     private EditText editTextPatient, editTextDate, editTextStartTime, editTextEndTime, editTextDoctor, editTextDescription;
     private String patientName, doctorName, visitDescription, textVisitDate, textVisitTimeStart, textVisitTimeEnd;
@@ -58,12 +56,6 @@ public class AddVisitFragment extends Fragment implements DialogContract {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.add_visit_fragment, container, false);
-
-        FragmentActivity activity = getActivity();
-
-        ((MainActivity)activity).setOnBackPressedListener(new BaseBackPressedListener(activity));
-
-
         clinicViewModel = ViewModelProviders.of(this).get(ClinicViewModel.class);
 
         editTextPatient = root.findViewById(R.id.EditTextAddVisitPatient);
@@ -81,7 +73,7 @@ public class AddVisitFragment extends Fragment implements DialogContract {
             @Override
             public void onClick(View v) {
                 final PatientDialogFragment patientDialogFragment = new PatientDialogFragment();
-                patientDialogFragment.setTargetFragment(AddVisitFragment.this, 0);
+                patientDialogFragment.setTargetFragment(AddEditVisitFragment.this, 0);
                 patientDialogFragment.show(getActivity().getSupportFragmentManager(), "myTag");
             }
         });
@@ -111,7 +103,7 @@ public class AddVisitFragment extends Fragment implements DialogContract {
             @Override
             public void onClick(View v) {
                 final DoctorDialogFragment doctorDialogFragment = new DoctorDialogFragment();
-                doctorDialogFragment.setTargetFragment(AddVisitFragment.this, 0);
+                doctorDialogFragment.setTargetFragment(AddEditVisitFragment.this, 0);
                 doctorDialogFragment.show(getActivity().getSupportFragmentManager(), "myTag");
             }
         });
@@ -140,22 +132,33 @@ public class AddVisitFragment extends Fragment implements DialogContract {
             clinicViewModel.getPatientById(dialogPatientId, new ClinicRepository.OnPatientLoaded() {
                 @Override
                 public void loaded(Patient patient) {
-                    if (patient != null) {
-                        patientName = patient.getFirstName() + " " + patient.getLastName();
-                    }
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (patient != null) {
+                                patientName = patient.getFirstName() + " " + patient.getLastName();
+                                editTextPatient.setText(patientName);
+                            }
+                        }
+                    });
                 }
             });
 
             clinicViewModel.getDoctorById(dialogDoctorId, new ClinicRepository.OnDoctorLoaded() {
                 @Override
                 public void loaded(Doctor doctor) {
-                    if (doctor != null) {
-                        doctorName = doctor.getFirstName() + " " + doctor.getLastName();
-                    }
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (doctor != null) {
+                                doctorName = doctor.getFirstName() + " " + doctor.getLastName();
+                                editTextDoctor.setText(doctorName);
+                            }
+                        }
+                    });
+
                 }
             });
-
-            //todo czasami uzupelnia lekarza czasami nie, pacjenta wcale
 
             SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat simpleTime = new SimpleDateFormat("HH:mm");
@@ -164,11 +167,10 @@ public class AddVisitFragment extends Fragment implements DialogContract {
             textVisitTimeStart = simpleTime.format(new Date(visitStartTime));
             textVisitTimeEnd = simpleTime.format(new Date(visitEndTime));
 
-            editTextPatient.setText(patientName);
             editTextDate.setText(textVisitDate);
             editTextStartTime.setText(textVisitTimeStart);
             editTextEndTime.setText(textVisitTimeEnd);
-            editTextDoctor.setText(doctorName);
+
             editTextDescription.setText(visitDescription);
 
         } catch (NullPointerException ex) {
@@ -310,16 +312,44 @@ public class AddVisitFragment extends Fragment implements DialogContract {
                 visit = new Visit(dialogPatientId, dialogDoctorId, visitDate, visitStartTime, visitEndTime, visitDescription);
                 visit.setId(visitId);
 
-                clinicViewModel.updateVisit(visit);
+                clinicViewModel.updateVisit(visit, new ClinicRepository.OnVisitExecuted() {
+                    @Override
+                    public void executed(boolean executed) {
+                        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (executed) {
+                                    Toast.makeText(getActivity(), "Wizyta Zapisana", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity(), "Istnieje już wizyta w podanym terminie", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
 
-                Toast.makeText(getActivity(), "Wizyta zaktualizowana", Toast.LENGTH_SHORT).show();
 
             } else {
                 visit = new Visit(dialogPatientId, dialogDoctorId, visitDate, visitStartTime, visitEndTime, visitDescription);
 
-                clinicViewModel.insertVisit(visit);
+                clinicViewModel.insertVisit(visit, new ClinicRepository.OnVisitExecuted() {
+                    @Override
+                    public void executed(boolean executed) {
+                        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (executed) {
+                                    Toast.makeText(getActivity(), "Wizyta Zapisana", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity(), "Istnieje już wizyta w podanym terminie", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
-                Toast.makeText(getActivity(), "Wizyta Zapisana", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
             }
             return true;
 
@@ -342,9 +372,6 @@ public class AddVisitFragment extends Fragment implements DialogContract {
             Toast.makeText(getActivity(), "Nieprawidłowy czas wizyty", Toast.LENGTH_SHORT).show();
             return false;
         }
-
-        //todo jeśli lekarz w tym czasie ma wizyte nie pozwala
-
         return true;
     }
 }

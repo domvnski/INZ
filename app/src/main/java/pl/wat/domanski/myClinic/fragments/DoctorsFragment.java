@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import pl.wat.domanski.myClinic.R;
+import pl.wat.domanski.myClinic.adapters.DoctorsAdapter;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Doctor;
-import pl.wat.domanski.myClinic.fragments.DoctorsAdapter;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -61,10 +61,10 @@ public class DoctorsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddDoctorFragment addDoctorFragment = new AddDoctorFragment();
+                AddEditDoctorFragment addEditDoctorFragment = new AddEditDoctorFragment();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
-                        .replace(R.id.nav_host_fragment, addDoctorFragment)
+                        .replace(R.id.nav_host_fragment, addEditDoctorFragment)
                         .addToBackStack(null)
                         .commit();
             }

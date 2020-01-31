@@ -1,4 +1,4 @@
-package pl.wat.domanski.myClinic.fragments;
+package pl.wat.domanski.myClinic;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;

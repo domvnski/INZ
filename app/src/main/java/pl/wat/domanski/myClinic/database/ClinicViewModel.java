@@ -48,10 +48,6 @@ public class ClinicViewModel extends AndroidViewModel {
         return allPatients;
     }
 
-    public void insertPatientAddress(PatientAddress patientAddress) {
-        clinicRepository.insertPatientAddress(patientAddress);
-    }
-
     public void updatePatientAddress(PatientAddress patientAddress) {
         clinicRepository.updatePatientAddress(patientAddress);
     }
@@ -62,10 +58,6 @@ public class ClinicViewModel extends AndroidViewModel {
 
     public void getPatientAddressByPatientId(int id, ClinicRepository.OnPatientAddressLoaded onResultsLoaded) {
         clinicRepository.getPatientAddressByPatientId(id, onResultsLoaded);
-    }
-
-    public void insertPatientContact(PatientContact patientContact) {
-        clinicRepository.insertPatientContact(patientContact);
     }
 
     public void updatePatientContact(PatientContact patientContact) {
@@ -104,12 +96,12 @@ public class ClinicViewModel extends AndroidViewModel {
         clinicRepository.getDoctorById(id, onResultsLoaded);
     }
 
-    public void insertVisit(Visit visit) {
-        clinicRepository.insertVisit(visit);
+    public void insertVisit(Visit visit, ClinicRepository.OnVisitExecuted onVisitExecuted) {
+        clinicRepository.insertVisit(visit, onVisitExecuted);
     }
 
-    public void updateVisit(Visit visit) {
-        clinicRepository.updateVisit(visit);
+    public void updateVisit(Visit visit, ClinicRepository.OnVisitExecuted onVisitExecuted) {
+        clinicRepository.updateVisit(visit, onVisitExecuted);
     }
 
     public void deleteVisit(Visit visit) {

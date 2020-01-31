@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pl.wat.domanski.myClinic.R;
+import pl.wat.domanski.myClinic.adapters.VisitsAdapter;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Visit;
-import pl.wat.domanski.myClinic.fragments.DialogContract;
-import pl.wat.domanski.myClinic.fragments.VisitsAdapter;
 
 import java.util.List;
 
@@ -32,7 +31,6 @@ public class VisitsDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        DialogContract mHost = (DialogContract) getTargetFragment();
         Context context = requireActivity();
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.visits_dialog, null);

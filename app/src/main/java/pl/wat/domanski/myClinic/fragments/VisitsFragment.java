@@ -20,11 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import pl.wat.domanski.myClinic.fragments.AddVisitFragment;
 import pl.wat.domanski.myClinic.R;
+import pl.wat.domanski.myClinic.adapters.VisitsAdapter;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Visit;
-import pl.wat.domanski.myClinic.fragments.VisitsAdapter;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -57,15 +56,15 @@ public class VisitsFragment extends Fragment {
         calendarVisits = root.findViewById(R.id.calendarVisits);
         textViewNoVisits = root.findViewById(R.id.textViewVisitsNoVisits);
         FloatingActionButton fab = root.findViewById(R.id.fabAddVisit);
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerViewVisits);
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewVisits);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddVisitFragment addVisitFragment = new AddVisitFragment();
+                AddEditVisitFragment addEditVisitFragment = new AddEditVisitFragment();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
-                        .replace(R.id.nav_host_fragment, addVisitFragment, "addVisitFragmentTAG")
+                        .replace(R.id.nav_host_fragment, addEditVisitFragment, "myTag")
                         .addToBackStack(null)
                         .commit();
             }
@@ -75,7 +74,6 @@ public class VisitsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         final VisitsAdapter adapter = new VisitsAdapter();
         recyclerView.setAdapter(adapter);
-
 
         showTodayVisits(adapter);
         adapter.setClinicViewModel(clinicViewModel);
@@ -88,60 +86,65 @@ public class VisitsFragment extends Fragment {
 
             @Override
             public void onEditClick(Visit visit) {
-
-                Bundle visitBundle = new Bundle();
-                visitBundle.putInt("VisitId", visit.getId());
-                visitBundle.putInt("VisitPatientId", visit.getPatientId());
-                visitBundle.putInt("VisitDoctorId", visit.getDoctorId());
-                visitBundle.putLong("VisitDate", visit.getDate());
-                visitBundle.putLong("VisitStartTime", visit.getTimeStart());
-                visitBundle.putLong("VisitEndTime", visit.getTimeEnd());
-                visitBundle.putString("VisitDescription", visit.getDescription());
-
-                AddVisitFragment addVisitFragment = new AddVisitFragment();
-                addVisitFragment.setArguments(visitBundle);
-
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction()
-                        .replace(R.id.nav_host_fragment, addVisitFragment)
-                        .addToBackStack(null)
-                        .commit();
+                goToEditVisitFragment(visit);
             }
         });
 
         calendarVisits.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                month += 1;
-                String textDate = dayOfMonth + "/" + month + "/" + year;
-
-                SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
-                Date date;
-
-                try {
-                    date = simpleDate.parse(textDate);
-                    longDate = date.getTime();
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                clinicViewModel.getVisitsByDate(longDate).observe(VisitsFragment.this, new Observer<List<Visit>>() {
-                    @Override
-                    public void onChanged(List<Visit> visits) {
-                        if (visits.size() != 0) textViewNoVisits.setVisibility(View.INVISIBLE);
-                        else textViewNoVisits.setVisibility(View.VISIBLE);
-
-                        adapter.setVisits(visits);
-
-                    }
-                });
-
+                showVisitsByDate(year, month, dayOfMonth, adapter);
             }
         });
 
         return root;
 
+    }
+
+    private void showVisitsByDate(int year, int month, int dayOfMonth, VisitsAdapter adapter) {
+        month += 1;
+        String textDate = dayOfMonth + "/" + month + "/" + year;
+
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date date;
+
+        try {
+            date = simpleDate.parse(textDate);
+            longDate = date.getTime();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        clinicViewModel.getVisitsByDate(longDate).observe(VisitsFragment.this, new Observer<List<Visit>>() {
+            @Override
+            public void onChanged(List<Visit> visits) {
+                if (visits.size() != 0) textViewNoVisits.setVisibility(View.INVISIBLE);
+                else textViewNoVisits.setVisibility(View.VISIBLE);
+
+                adapter.setVisits(visits);
+            }
+        });
+    }
+
+    private void goToEditVisitFragment(Visit visit) {
+        Bundle visitBundle = new Bundle();
+        visitBundle.putInt("VisitId", visit.getId());
+        visitBundle.putInt("VisitPatientId", visit.getPatientId());
+        visitBundle.putInt("VisitDoctorId", visit.getDoctorId());
+        visitBundle.putLong("VisitDate", visit.getDate());
+        visitBundle.putLong("VisitStartTime", visit.getTimeStart());
+        visitBundle.putLong("VisitEndTime", visit.getTimeEnd());
+        visitBundle.putString("VisitDescription", visit.getDescription());
+
+        AddEditVisitFragment addEditVisitFragment = new AddEditVisitFragment();
+        addEditVisitFragment.setArguments(visitBundle);
+
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.nav_host_fragment, addEditVisitFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void showTodayVisits(VisitsAdapter adapter) {
@@ -195,5 +198,4 @@ public class VisitsFragment extends Fragment {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-
 }

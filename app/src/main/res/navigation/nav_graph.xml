@@ -37,9 +37,9 @@
 
     <fragment
         android:id="@+id/defaultFragment"
-        android:name="pl.wat.domanski.myClinic.fragments.DefaultFragment"
+        android:name="pl.wat.domanski.myClinic.fragments.MainFragment"
         android:label="Strona Główna"
-        tools:layout="@layout/default_fragment" >
+        tools:layout="@layout/main_fragment" >
     </fragment>
 
 </navigation>

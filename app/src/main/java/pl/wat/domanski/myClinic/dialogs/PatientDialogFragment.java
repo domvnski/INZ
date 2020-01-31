@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pl.wat.domanski.myClinic.R;
+import pl.wat.domanski.myClinic.adapters.PatientsAdapter;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Patient;
-import pl.wat.domanski.myClinic.fragments.DialogContract;
-import pl.wat.domanski.myClinic.fragments.PatientsAdapter;
 
 import java.util.List;
 

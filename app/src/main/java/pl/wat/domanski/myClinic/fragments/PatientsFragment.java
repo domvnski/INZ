@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pl.wat.domanski.myClinic.R;
+import pl.wat.domanski.myClinic.adapters.PatientsAdapter;
 import pl.wat.domanski.myClinic.database.ClinicRepository;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Patient;
 import pl.wat.domanski.myClinic.database.PatientAddress;
 import pl.wat.domanski.myClinic.database.PatientContact;
-import pl.wat.domanski.myClinic.fragments.PatientsAdapter;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -63,13 +63,10 @@ public class PatientsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo resetowanie widoku?
-//                 FrameLayout host = getView().findViewById(R.id.nav_host_fragment);
-//                 host.removeAllViews();
-                AddPatientFragment addPatientFragment = new AddPatientFragment();
+                AddEditPatientFragment addEditPatientFragment = new AddEditPatientFragment();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
-                        .replace(R.id.nav_host_fragment, addPatientFragment)
+                        .replace(R.id.nav_host_fragment, addEditPatientFragment)
                         .addToBackStack(null)
                         .commit();
             }

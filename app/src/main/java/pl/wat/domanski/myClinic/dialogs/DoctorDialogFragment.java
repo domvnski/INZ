@@ -1,4 +1,4 @@
-package pl.wat.domanski.myClinic.fragments;
+package pl.wat.domanski.myClinic.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+
 import pl.wat.domanski.myClinic.R;
+import pl.wat.domanski.myClinic.adapters.DoctorsAdapter;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Doctor;
 

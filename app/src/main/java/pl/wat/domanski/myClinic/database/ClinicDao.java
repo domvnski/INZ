@@ -98,4 +98,7 @@ public interface ClinicDao {
 
     @Query("SELECT * FROM visits ORDER BY date, timeStart, timeEnd ASC ")
     LiveData<List<Visit>> getAllVisits();
+
+    @Query("SELECT * FROM visits where date = :date and (timeStart BETWEEN :timeStart and :timeEnd or timeEnd BETWEEN :timeStart and :timeEnd) and (doctorId = :doctorId)")
+    List<Visit> checkIfVisitExistInTime(long date, long timeStart, long timeEnd, int doctorId);
 }

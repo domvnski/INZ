@@ -28,7 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddPatientFragment extends Fragment {
+public class AddEditPatientFragment extends Fragment {
 
     private EditText editTextFirstName;
     private EditText editTextLastName;
@@ -75,7 +75,6 @@ public class AddPatientFragment extends Fragment {
         buttonSavePatient = root.findViewById(R.id.buttonSaveNewPatient);
 
         fillContent();
-
 
         editTextBirthDate.setOnClickListener(new View.OnClickListener() {
             @Override

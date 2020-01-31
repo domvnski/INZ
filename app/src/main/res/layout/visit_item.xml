@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:ellipsize="end"
-            android:text="Pacjent"
+            android:text="Imię i nazwisko pacjenta"
             android:textStyle="bold"
             android:textSize="16dp" />
 
@@ -29,7 +29,7 @@
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/textViewPatientName"
             android:ellipsize="end"
-            android:text="Doktor"
+            android:text="Imię i nazwisko lekarza"
             android:textSize="14dp"  />
 
             <TextView

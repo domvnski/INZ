@@ -1,7 +1,6 @@
 package pl.wat.domanski.myClinic.fragments;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,7 +70,6 @@ public class PatientInfoFragment extends Fragment {
         textViewPatientCreateDate = root.findViewById(R.id.textViewPatientInfoCreateDate);
 
         fillContent();
-
 
         imageButtonVisits.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +215,7 @@ public class PatientInfoFragment extends Fragment {
             public void loaded(PatientAddress patientAddress) {
                 if (patientAddress != null) {
                     anonymousPatientAddress.setId(patientAddress.getId());
+                    clinicViewModel.updatePatientAddress(anonymousPatientAddress);
                 }
             }
         });
@@ -227,13 +225,12 @@ public class PatientInfoFragment extends Fragment {
             public void loaded(PatientContact patientContact) {
                 if (patientContact != null) {
                     anonymousPatientContact.setId(patientContact.getId());
+                    clinicViewModel.updatePatientContact(anonymousPatientContact);
                 }
             }
         });
 
         clinicViewModel.updatePatient(anonymousPatient);
-        clinicViewModel.updatePatientAddress(anonymousPatientAddress);
-        clinicViewModel.updatePatientContact(anonymousPatientContact);
     }
 
     private void goToEditPatientFragment() {
@@ -252,18 +249,21 @@ public class PatientInfoFragment extends Fragment {
         patientBundle.putString("PatientCity", patientCity);
         patientBundle.putString("PatientNote", patientNote);
 
-        AddPatientFragment addPatientFragment = new AddPatientFragment();
-        addPatientFragment.setArguments(patientBundle);
+        AddEditPatientFragment addEditPatientFragment = new AddEditPatientFragment();
+        addEditPatientFragment.setArguments(patientBundle);
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.nav_host_fragment, addPatientFragment)
+                .replace(R.id.nav_host_fragment, addEditPatientFragment)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void deletePatient(Patient patient) {
         clinicViewModel.deletePatient(patient);
+        clinicViewModel.deletePatient(patient);
+        clinicViewModel.deletePatient(patient);
+
     }
 
     private void goBack() {
@@ -277,7 +277,7 @@ public class PatientInfoFragment extends Fragment {
 
     private void showConfirmDeleteSnackbar(final Patient patient) {
         Snackbar snackbar = Snackbar
-                .make(getView(), "Czy na pewno chcesz usunąć tego pacjenta?", Snackbar.LENGTH_LONG)
+                .make(getView(), "Czy na pewno chcesz usunąć tego pacjenta? Operacja jest nieodwracalna." , Snackbar.LENGTH_LONG)
                 .setAction("TAK", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -292,7 +292,7 @@ public class PatientInfoFragment extends Fragment {
 
     private void showConfirmAnonymizeSnackbar(final Patient patient) {
         Snackbar snackbar = Snackbar
-                .make(getView(), "Czy na pewno chcesz zanimizować tego pacjenta? Operacja jest nieodwracalna.", Snackbar.LENGTH_LONG)
+                .make(getView(), "Czy na pewno chcesz zanimizować dane tego pacjenta? Operacja jest nieodwracalna.", Snackbar.LENGTH_LONG)
                 .setAction("TAK", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -313,7 +313,7 @@ public class PatientInfoFragment extends Fragment {
             ActivityCompat.requestPermissions(
                     getActivity(),
                     new String[]{Manifest.permission.CALL_PHONE},
-                    123);
+                    0);
         } else {
             startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:" + patientPhone)));
         }

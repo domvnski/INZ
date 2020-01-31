@@ -19,7 +19,7 @@ import pl.wat.domanski.myClinic.R;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Doctor;
 
-public class AddDoctorFragment extends Fragment {
+public class AddEditDoctorFragment extends Fragment {
 
     private EditText editTextFirstName;
     private EditText editTextLastName;
@@ -69,13 +69,12 @@ public class AddDoctorFragment extends Fragment {
 
     private void fillContent() {
         try {
-             firstName = getArguments().getString("DoctorFirstname");
-             lastName = getArguments().getString("DoctorLastname");
-             phone = getArguments().getString("DoctorPhone");
-             email = getArguments().getString("DoctorEmail");
-             specialization = getArguments().getString("DoctorSpecialization");
-             pwzNumber= getArguments().getString("DoctorPwzNumber");
-
+            firstName = getArguments().getString("DoctorFirstname");
+            lastName = getArguments().getString("DoctorLastname");
+            phone = getArguments().getString("DoctorPhone");
+            email = getArguments().getString("DoctorEmail");
+            specialization = getArguments().getString("DoctorSpecialization");
+            pwzNumber = getArguments().getString("DoctorPwzNumber");
 
             editTextFirstName.setText(firstName);
             editTextLastName.setText(lastName);
@@ -100,6 +99,14 @@ public class AddDoctorFragment extends Fragment {
 
 
     private boolean saveDoctor() {
+
+        firstName = editTextFirstName.getText().toString();
+        lastName = editTextLastName.getText().toString();
+        phone = editTextPhone.getText().toString();
+        email = editTextEmail.getText().toString();
+        specialization = editTextSpecialization.getText().toString();
+        pwzNumber = editTextPwzNumber.getText().toString();
+
         if (validateDoctorData()) {
             doctor = new Doctor(firstName, lastName, phone, email, specialization, pwzNumber);
             try {
@@ -138,7 +145,7 @@ public class AddDoctorFragment extends Fragment {
             return false;
         }
 
-        if (pwzNumber.length()!=7) {
+        if (pwzNumber.length() != 7) {
             Toast.makeText(getActivity(), "Nieprawidłowy numer PWZ!", Toast.LENGTH_SHORT).show();
             return false;
         }

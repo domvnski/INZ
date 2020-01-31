@@ -22,7 +22,7 @@ public class ClinicRepository {
 
 
     public ClinicRepository(@NonNull Application application) {
-        ClinicDatabase clinicDatabase = ClinicDatabase.getDatabase(application);
+        ClinicDatabase clinicDatabase = ClinicDatabase.getInstance(application);
         clinicDao = clinicDatabase.clinicDao();
         allPatients = clinicDao.getAllPatients();
         allDoctors = clinicDao.getAllDoctors();
@@ -67,9 +67,6 @@ public class ClinicRepository {
         void loaded(Patient patient);
     }
 
-    public void insertPatientAddress(PatientAddress patientAddress) {
-        new InsertPatientAddressAsyncTask(clinicDao).execute(patientAddress);
-    }
 
     public void updatePatientAddress(PatientAddress patientAddress) {
         new UpdatePatientAddressAsyncTask(clinicDao).execute(patientAddress);
@@ -90,9 +87,6 @@ public class ClinicRepository {
         void loaded(PatientAddress patientAddress);
     }
 
-    public void insertPatientContact(PatientContact patientContact) {
-        new InsertPatientContactAsyncTask(clinicDao).execute(patientContact);
-    }
 
     public void updatePatientContact(PatientContact patientContact) {
         new UpdatePatientContactAsyncTask(clinicDao).execute(patientContact);
@@ -145,12 +139,33 @@ public class ClinicRepository {
         void loaded(Doctor doctor);
     }
 
-    public void insertVisit(Visit visit) {
-        new InsertVisitAsyncTask(clinicDao).execute(visit);
+
+    public void insertVisit(Visit visit, OnVisitExecuted onVisitExecuted) {
+        new Thread(() -> {
+            List<Visit> checkIfVisitExsistInTime = clinicDao.checkIfVisitExistInTime(visit.getDate(), visit.getTimeStart(), visit.getTimeEnd(), visit.getDoctorId());
+            if (checkIfVisitExsistInTime.isEmpty()) {
+                clinicDao.insertVisit(visit);
+                onVisitExecuted.executed(true);
+            } else {
+                onVisitExecuted.executed(false);
+            }
+        }).start();
     }
 
-    public void updateVisit(Visit visit) {
-        new UpdateVisitAsyncTask(clinicDao).execute(visit);
+    public interface OnVisitExecuted {
+        void executed(boolean executed);
+    }
+
+    public void updateVisit(Visit visit, OnVisitExecuted onVisitExecuted) {
+        new Thread(() -> {
+            List<Visit> checkIfVisitExsistInTime = clinicDao.checkIfVisitExistInTime(visit.getDate(), visit.getTimeStart(), visit.getTimeEnd(), visit.getDoctorId());
+            if (checkIfVisitExsistInTime.isEmpty()) {
+                clinicDao.updateVisit(visit);
+                onVisitExecuted.executed(true);
+            } else {
+                onVisitExecuted.executed(false);
+            }
+        }).start();
     }
 
     public void deleteVisit(Visit visit) {
@@ -186,20 +201,6 @@ public class ClinicRepository {
 
     public LiveData<List<Visit>> getVisitsByDate(long date) {
         return clinicDao.getVisitsByDate(date);
-    }
-
-    private static class InsertPatientAsyncTask extends AsyncTask<Patient, Void, Void> {
-        private ClinicDao clinicDao;
-
-        private InsertPatientAsyncTask(ClinicDao clinicDao) {
-            this.clinicDao = clinicDao;
-        }
-
-        @Override
-        protected Void doInBackground(Patient... patients) {
-            clinicDao.insertPatient(patients[0]);
-            return null;
-        }
     }
 
     private static class UpdatePatientAsyncTask extends AsyncTask<Patient, Void, Void> {
@@ -244,19 +245,6 @@ public class ClinicRepository {
         }
     }
 
-    private static class InsertPatientAddressAsyncTask extends AsyncTask<PatientAddress, Void, Void> {
-        private ClinicDao clinicDao;
-
-        private InsertPatientAddressAsyncTask(ClinicDao clinicDao) {
-            this.clinicDao = clinicDao;
-        }
-
-        @Override
-        protected Void doInBackground(PatientAddress... patientAddresses) {
-            clinicDao.insertPatientAddress(patientAddresses[0]);
-            return null;
-        }
-    }
 
     private static class UpdatePatientAddressAsyncTask extends AsyncTask<PatientAddress, Void, Void> {
         private ClinicDao clinicDao;
@@ -282,20 +270,6 @@ public class ClinicRepository {
         @Override
         protected Void doInBackground(PatientAddress... patientAddresses) {
             clinicDao.deletePatientAddress(patientAddresses[0]);
-            return null;
-        }
-    }
-
-    private static class InsertPatientContactAsyncTask extends AsyncTask<PatientContact, Void, Void> {
-        private ClinicDao clinicDao;
-
-        private InsertPatientContactAsyncTask(ClinicDao clinicDao) {
-            this.clinicDao = clinicDao;
-        }
-
-        @Override
-        protected Void doInBackground(PatientContact... patientContacts) {
-            clinicDao.insertPatientContact(patientContacts[0]);
             return null;
         }
     }
@@ -384,33 +358,6 @@ public class ClinicRepository {
         }
     }
 
-    private static class InsertVisitAsyncTask extends AsyncTask<Visit, Void, Void> {
-        private ClinicDao clinicDao;
-
-        private InsertVisitAsyncTask(ClinicDao clinicDao) {
-            this.clinicDao = clinicDao;
-        }
-
-        @Override
-        protected Void doInBackground(Visit... visits) {
-            clinicDao.insertVisit(visits[0]);
-            return null;
-        }
-    }
-
-    private static class UpdateVisitAsyncTask extends AsyncTask<Visit, Void, Void> {
-        private ClinicDao clinicDao;
-
-        private UpdateVisitAsyncTask(ClinicDao clinicDao) {
-            this.clinicDao = clinicDao;
-        }
-
-        @Override
-        protected Void doInBackground(Visit... visits) {
-            clinicDao.updateVisit(visits[0]);
-            return null;
-        }
-    }
 
     private static class DeleteVisitAsyncTask extends AsyncTask<Visit, Void, Void> {
         private ClinicDao clinicDao;

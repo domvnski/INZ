@@ -27,12 +27,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import pl.wat.domanski.myClinic.fragments.AddVisitFragment;
 import pl.wat.domanski.myClinic.R;
 import pl.wat.domanski.myClinic.database.ClinicViewModel;
 import pl.wat.domanski.myClinic.database.Visit;
 
-public class DefaultFragment extends Fragment {
+public class MainFragment extends Fragment {
 
     private Button buttonShowDeviceCalendar;
     private ImageButton imageButtonAddVisit, imageButtonShowVisits;
@@ -48,7 +47,7 @@ public class DefaultFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.default_fragment, container, false);
+        View root = inflater.inflate(R.layout.main_fragment, container, false);
 
         clinicViewModel = ViewModelProviders.of(this).get(ClinicViewModel.class);
         closeKeyboard();
@@ -75,10 +74,10 @@ public class DefaultFragment extends Fragment {
         imageButtonAddVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddVisitFragment addVisitFragment = new AddVisitFragment();
+                AddEditVisitFragment addEditVisitFragment = new AddEditVisitFragment();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
-                        .replace(R.id.nav_host_fragment, addVisitFragment)
+                        .replace(R.id.nav_host_fragment, addEditVisitFragment)
                         .addToBackStack(null)
                         .commit();
             }
@@ -117,7 +116,7 @@ public class DefaultFragment extends Fragment {
             e.printStackTrace();
         }
 
-        clinicViewModel.getVisitsByDate(longCurrentDate).observe(DefaultFragment.this, new Observer<List<Visit>>() {
+        clinicViewModel.getVisitsByDate(longCurrentDate).observe(MainFragment.this, new Observer<List<Visit>>() {
             @Override
             public void onChanged(List<Visit> visits) {
                 textViewVisitCounter.setText(String.valueOf(visits.size()));
